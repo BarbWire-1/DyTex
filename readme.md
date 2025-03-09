@@ -1,4 +1,3 @@
-```md
 # DyTex.js
 
 ## Overview
