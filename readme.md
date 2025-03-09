@@ -11,6 +11,7 @@
 - **Dynamic element handling**: Allows new elements to be added dynamically while maintaining reactivity.
 - **Minimal and framework-independent**: A pure JavaScript solution without dependencies.
 
+---
 ## Installation
 
 Simply include `DyTex.js` in your project:
@@ -24,7 +25,7 @@ Or, if using ES6 modules:
 ```js
 import DyTex from './DyTex.js';
 ```
-
+---
 ## Usage
 
 ### Initialization
@@ -57,9 +58,6 @@ Now, any element using `{{color}}`, `{{size}}`, or `{{message}}` will update whe
 
 Internally these placeholders get replaced by spans with a data-attribute of class "dytex"
 
-When `reactive.message = "New Message";` is executed, the span's content updates automatically.
-
-
 ```js
 <p>Hello, {{message}}!</p>
 ```
@@ -70,7 +68,9 @@ When `reactive.message = "New Message";` is executed, the span's content updates
 <p>Hello, <span class="dytex" data-dytex-message>Hello World</span>!</p>
 ```
 
-And any updates to `message` will reflect in real-time.
+When `reactive.message = "New Message";` is executed, the span's content updates automatically.
+
+
 
 ### Updating Variables Dynamically
 
@@ -92,16 +92,17 @@ reactive.defineVariables({ dynamicText: "I'm dynamically added text" });
 newElement.innerHTML = "Dynamic content: {{dynamicText}}";
 reactive.addDynamicElement(newElement);
 ```
-
+---
 ## Philosophy
 
 - **Simplicity**: A minimal, declarative approach to UI reactivity.
 - **Lightweight**: No dependencies, small footprint.
 - **Flexibility**: Works alongside existing JavaScript frameworks or standalone.
-
+---
 ## License
 
 MIT License
+
 
 ## Contributing
 
