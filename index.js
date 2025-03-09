@@ -1,6 +1,5 @@
 import DyTex from "./Dytex.js";
 
-
 // USAGE EXAMPLES UPDATING THE VARIABLE PARTS OF TEXT
 // would scan all document.body
 // const reactive = new DyNodes();

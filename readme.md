@@ -32,7 +32,7 @@ import DyTex from './DyTex.js';
 Create an instance of `DyTex` by specifying a parent container:
 
 ```js
-const reactive = new Reactive(document.querySelector("#content"));
+const reactive = new DyTex(document.querySelector("#content"));
 ```
 
 If no parent is provided, it defaults to `document.body`.
