@@ -1,41 +1,51 @@
 class DyTex {
 	constructor (parent = document.body) {
 		this.parent = parent;
+		this.initialized = false;
 	}
 
+	// Define reactive variables
 	defineVariables(variables) {
 		Object.entries(variables).forEach(([ prop, value ]) => {
-			this.defineReactive(prop, value);
+			this.#createAccessors(prop, value);
 		});
-		this.scanForPlaceholders();
+
+		if (!this.initialized) {
+			this.#scanForPlaceholders();
+			this.initialized = true;
+		}
 	}
-	// create getter/setter for the reactive variables
-	defineReactive(prop, value) {
+
+	// Create getter/setter for the reactive variables
+	#createAccessors(prop, value) {
 		Object.defineProperty(this, prop, {
 			get: () => value,
 			set: (newValue) => {
 				value = newValue;
-				this.updateElements(prop, newValue);
+				this.#updateElements(prop, newValue);
 			}
 		});
 	}
-	// replaces textContent in spans with corresponding data-attribute
-	updateElements(prop, newValue) {
+
+	// Update elements when reactive variables change
+	#updateElements(prop, newValue) {
 		const elements = this.parent.querySelectorAll(`[data-dytex-${prop}]`);
 		elements.forEach((element) => {
 			element.textContent = newValue;
 		});
 	}
-	// on init scan the parent container for text holding variables in {{varName}}
-	scanForPlaceholders() {
+
+	// Scan the entire parent once at initialization
+	#scanForPlaceholders() {
 		const elements = this.parent.querySelectorAll("*");
 		elements.forEach((element) => {
-			this.wrapPlaceholders(element);
+			this.#wrapPlaceholders(element);
 		});
 	}
-	// easier than using fragments as modifies in place
-	// replacing variableNames with spans holding a data-attribute
-	wrapPlaceholders(element) {
+
+	// Replace placeholders with spans containing the reactive values
+	// having a data-attribute to relate to
+	#wrapPlaceholders(element) {
 		let updatedText = element.innerHTML;
 		const regex = /{{(\w+)}}/g;
 		let match;
@@ -44,17 +54,26 @@ class DyTex {
 			if (this[ propName ]) {
 				updatedText = updatedText.replace(
 					match[ 0 ],
-					`<span class="dytex" data-dytex-${propName}="">${this[ propName ]}</span>`
+					`<span class="dytex" data-dytex-${propName}>${this[ propName ]}</span>`
 				);
 			}
 		}
 		element.innerHTML = updatedText;
 	}
 
-	addDynamicElement(element) {
+	// Add a dynamic element, define its variables and scan and replace the placeHolders inside
+	addDynamicElement(element, variables = undefined) {
 		this.parent.appendChild(element);
-		this.wrapPlaceholders(element);
+		variables && this.defineVariables(variables)
+
+		// create the span for variable text
+		this.#wrapPlaceholders(element);
 	}
 }
+
+
+
+
+
 
 export default DyTex;

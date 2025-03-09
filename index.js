@@ -31,11 +31,10 @@ setTimeout(() => {
 // add a new variable and a new textElement dynamically
 setTimeout(() => {
 	const dynamicTextElement = document.createElement("div");
-	reactive.defineVariables({ dynamicText: "I'm dynamically added text" });
-	dynamicTextElement.textContent =
-		"Dynamically added element: {{dynamicText}}";
+	const variables = { dynamicText: "I'm dynamically added text" };
+	dynamicTextElement.textContent = "Dynamically added element of color {{color}}: {{dynamicText}}";
 
-	reactive.addDynamicElement(dynamicTextElement);
+	reactive.addDynamicElement(dynamicTextElement, variables);
 }, 5000);
 
 // update the newly added el and some old

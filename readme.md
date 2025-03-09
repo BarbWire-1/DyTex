@@ -87,10 +87,11 @@ setTimeout(() => {
 You can also add new elements to the DOM while keeping them reactive:
 
 ```js
-const newElement = document.createElement("div");
-reactive.defineVariables({ dynamicText: "I'm dynamically added text" });
-newElement.innerHTML = "Dynamic content: {{dynamicText}}";
-reactive.addDynamicElement(newElement);
+const dynamicTextElement = document.createElement("div");
+	const newVariable = { dynamicText: "I'm dynamically added text" };
+	dynamicTextElement.textContent = "Dynamically added element: {{dynamicText}}";
+
+	reactive.addDynamicElement(dynamicTextElement, newVariable);
 ```
 ---
 ## Philosophy
@@ -106,5 +107,5 @@ MIT License
 
 ## Contributing
 
-Contributions and improvements are welcome! The idea is to expand it handling variables with the same syntax in not only textNodes.
+Contributions and improvements are welcome! The idea is to expand it to allow individual variables and handling variables with the same syntax in not only textNodes.
 Feel free to submit issues or pull requests on GitHub.
