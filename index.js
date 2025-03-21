@@ -31,14 +31,23 @@ setTimeout(() => {
 // add a new variable and a new textElement dynamically
 setTimeout(() => {
 	const dynamicTextElement = document.createElement("div");
-	const variables = { dynamicText: "I'm dynamically added text" };
+	const newVariable = { dynamicText: "I'm dynamically added text" };
 	dynamicTextElement.textContent = "Dynamically added element of color {{color}}: {{dynamicText}}";
-
-	reactive.addDynamicElement(dynamicTextElement, variables);
+	// define new variables this way
+	// reactive.defineVariables(newVariable)
+	// OR add optionally to newly added text
+	reactive.addDynamicElement(dynamicTextElement, newVariable);
 }, 5000);
 
 // update the newly added el and some old
 setTimeout(() => {
 	reactive.color = "orange";
-	reactive.dynamicText += "...and now my text got changed.";
+	reactive.dynamicText += "...and now something got appended.";
+	// change color of all spans holding the color var to value!
+	document.querySelectorAll("[data-dytex-color]")
+		.forEach(el => el.style.color = reactive.color);
+
 }, 7000);
+
+
+console.log(Object.getOwnPropertyNames(reactive))
